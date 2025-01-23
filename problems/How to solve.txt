@@ -1,0 +1,25 @@
+Problem 1: Restarting the CodeDeploy Agent
+To resolve issues with the CodeDeploy agent, follow these steps to restart it:
+
+Stop the CodeDeploy agent:
+$ sudo systemctl stop codedeploy-agent.service
+
+Start the CodeDeploy agent:
+$ sudo systemctl start codedeploy-agent.service
+
+Note: Ensure that the EC2 instance has the necessary IAM policy (EC2CodeDeploy) attached. Failing to grant the proper permissions to the EC2 instance can also result in deployment errors.
+
+To create a role named "EC2CodeDeploy":
+	- Go to the IAM console in AWS.
+	- Create a new role.
+	- Select "AWS service" as the trusted entity.
+	- Choose "EC2" and search for the policy.
+	- Attach the AmazonEC2RoleforAWSCodeDeploy policy to the role and create it.
+
+Problem 2: Handling Existing Files
+To address the issue of an existing file causing deployment failures, I have created a script named remove_existing_file in my script folder. This script checks for the presence of index.html before installation and removes it if it already exists.
+
+Problem 3: File Not Found Due to Misspelling
+In my case, the deployment issue arose because I had misspelled index.html as index.php, which prevented CodeDeploy from locating the file. 
+
+Note: Be sure to double-check for any spelling errors in the appspec.yml file as well.
